@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: '{{ .Release.Name }}-api-worker'
+  labels:
+    app.kubernetes.io/component: api-worker
+    app.kubernetes.io/name: '{{ .Chart.Name }}'
+    app.kubernetes.io/instance: '{{ .Release.Name }}'
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: api-worker
+      app.kubernetes.io/instance: '{{ .Release.Name }}'
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: api-worker
+        app.kubernetes.io/instance: '{{ .Release.Name }}'
+    spec:
+      initContainers:
+        - name: check-api
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |-
+              OK=0
+              echo "Checking api port"
+              while [ $OK != 1 ]; do
+                  echo -n "."
+                  nc -z {{ .Release.Name }}-api 3000 2>&1 >/dev/null && OK=1 || sleep 1
+              done
+              echo
+              echo "Done"
+      containers:
+        - name: api-worker
+          image: '{{ .Values.apiWorker.repository.image }}{{ if ne .Values.apiWorker.repository.tag "" }}:{{ .Values.apiWorker.repository.tag }}{{ end }}'
+          env:
+            - name: SECRET_KEY_BASE
+              value: '{{ tpl .Values.apiWorker.environment.SECRET_KEY_BASE . }}'
+            - name: LAGO_USE_GCS
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_USE_GCS . }}'
+            - name: LAGO_RSA_PRIVATE_KEY
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_RSA_PRIVATE_KEY . }}'
+            - name: REDIS_URL
+              value: '{{ tpl .Values.apiWorker.environment.REDIS_URL . }}'
+            - name: GOCARDLESS_CLIENT_SECRET
+              value: '{{ tpl .Values.apiWorker.environment.GOCARDLESS_CLIENT_SECRET . }}'
+            - name: LAGO_AWS_S3_ACCESS_KEY_ID
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_AWS_S3_ACCESS_KEY_ID . }}'
+            - name: LAGO_AWS_S3_REGION
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_AWS_S3_REGION . }}'
+            - name: LAGO_USE_AWS_S3
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_USE_AWS_S3 . }}'
+            - name: LAGO_API_URL
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_API_URL . }}'
+            - name: LAGO_DISABLE_SEGMENT
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_DISABLE_SEGMENT . }}'
+            - name: LAGO_REDIS_CACHE_URL
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_REDIS_CACHE_URL . }}'
+            - name: LAGO_AWS_S3_ENDPOINT
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_AWS_S3_ENDPOINT . }}'
+            - name: RSA_PRIVATE_KEY
+              value: '{{ tpl .Values.apiWorker.environment.RSA_PRIVATE_KEY . }}'
+            - name: SENTRY_DSN
+              value: '{{ tpl .Values.apiWorker.environment.SENTRY_DSN . }}'
+            - name: LAGO_AWS_S3_SECRET_ACCESS_KEY
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_AWS_S3_SECRET_ACCESS_KEY . }}'
+            - name: ENCRYPTION_DETERMINISTIC_KEY
+              value: '{{ tpl .Values.apiWorker.environment.ENCRYPTION_DETERMINISTIC_KEY . }}'
+            - name: LAGO_GCS_BUCKET
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_GCS_BUCKET . }}'
+            - name: DATABASE_URL
+              value: '{{ tpl .Values.apiWorker.environment.DATABASE_URL . }}'
+            - name: LAGO_GCS_PROJECT
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_GCS_PROJECT . }}'
+            - name: GOCARDLESS_CLIENT_ID
+              value: '{{ tpl .Values.apiWorker.environment.GOCARDLESS_CLIENT_ID . }}'
+            - name: ENCRYPTION_KEY_DERIVATION_SALT
+              value: '{{ tpl .Values.apiWorker.environment.ENCRYPTION_KEY_DERIVATION_SALT . }}'
+            - name: RAILS_ENV
+              value: '{{ tpl .Values.apiWorker.environment.RAILS_ENV . }}'
+            - name: LAGO_AWS_S3_BUCKET
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_AWS_S3_BUCKET . }}'
+            - name: ENCRYPTION_PRIMARY_KEY
+              value: '{{ tpl .Values.apiWorker.environment.ENCRYPTION_PRIMARY_KEY . }}'
+            - name: RAILS_LOG_TO_STDOUT
+              value: '{{ tpl .Values.apiWorker.environment.RAILS_LOG_TO_STDOUT . }}'
+            - name: LAGO_PDF_URL
+              value: '{{ tpl .Values.apiWorker.environment.LAGO_PDF_URL . }}'
+          command:
+            - ./scripts/start.worker.sh
+

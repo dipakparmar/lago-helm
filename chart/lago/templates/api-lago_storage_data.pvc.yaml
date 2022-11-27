@@ -1,0 +1,17 @@
+{{ if .Values.api.persistence.lago_storage_data.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: '{{ .Release.Name }}-lago_storage_data'
+  labels:
+    app.kubernetes.io/component: api
+    app.kubernetes.io/name: '{{ .Chart.Name }}'
+    app.kubernetes.io/pvc-name: lago_storage_data
+    app.kubernetes.io/instance: '{{ .Release.Name }}'
+spec:
+  resources:
+    requests:
+      storage: '{{ .Values.api.persistence.lago_storage_data.capacity }}'
+  accessModes:
+    - ReadWriteOnce
+{{- end -}}

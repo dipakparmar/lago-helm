@@ -1,0 +1,18 @@
+{{ if .Values.redis.persistence.lago_redis_data.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: '{{ .Release.Name }}-lago_redis_data'
+  labels:
+    app.kubernetes.io/component: redis
+    app.kubernetes.io/name: '{{ .Chart.Name }}'
+    app.kubernetes.io/pvc-name: lago_redis_data
+    app.kubernetes.io/instance: '{{ .Release.Name }}'
+
+spec:
+  resources:
+    requests:
+      storage: '{{ .Values.redis.persistence.lago_redis_data.capacity }}'
+  accessModes:
+    - ReadWriteOnce
+{{- end -}}

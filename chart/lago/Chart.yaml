@@ -1,0 +1,7 @@
+apiVersion: v2
+appVersion: main-3162d86
+description: A helm chart for lago
+icon: https://avatars.githubusercontent.com/u/75492405
+name: lago
+type: application
+version: 0.1.0
