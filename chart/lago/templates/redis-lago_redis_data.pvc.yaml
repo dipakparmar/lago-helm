@@ -2,17 +2,19 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: '{{ .Release.Name }}-lago_redis_data'
+  name: '{{ .Release.Name }}-lago-redis-data'
   labels:
     app.kubernetes.io/component: redis
     app.kubernetes.io/name: '{{ .Chart.Name }}'
-    app.kubernetes.io/pvc-name: lago_redis_data
+    app.kubernetes.io/pvc-name: lago-redis-data
     app.kubernetes.io/instance: '{{ .Release.Name }}'
-
 spec:
   resources:
     requests:
       storage: '{{ .Values.redis.persistence.lago_redis_data.capacity }}'
+  {{ if .Values.redis.persistence.lago_redis_data.storageClassName }}
+  storageClassName: '{{ .Values.redis.persistence.lago_redis_data.storageClassName }}'
+  {{ end }}
   accessModes:
     - ReadWriteOnce
 {{- end -}}

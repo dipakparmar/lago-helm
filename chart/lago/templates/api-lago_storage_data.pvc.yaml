@@ -12,6 +12,9 @@ spec:
   resources:
     requests:
       storage: '{{ .Values.api.persistence.lago_storage_data.capacity }}'
+  {{ if .Values.api.persistence.lago_storage_data.storageClassName }}
+  storageClassName: '{{ .Values.api.persistence.lago_storage_data.storageClassName }}'
+  {{ end }}
   accessModes:
     - ReadWriteOnce
 {{- end -}}

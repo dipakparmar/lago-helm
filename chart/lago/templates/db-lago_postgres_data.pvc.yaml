@@ -8,11 +8,13 @@ metadata:
     app.kubernetes.io/name: '{{ .Chart.Name }}'
     app.kubernetes.io/pvc-name: lago_postgres_data
     app.kubernetes.io/instance: '{{ .Release.Name }}'
-
 spec:
   resources:
     requests:
       storage: '{{ .Values.db.persistence.lago_postgres_data.capacity }}'
+  {{ if .Values.db.persistence.lago_postgres_data.storageClassName }}
+  storageClassName: '{{ .Values.db.persistence.lago_postgres_data.storageClassName }}'
+  {{ end }}
   accessModes:
     - ReadWriteOnce
 {{- end -}}

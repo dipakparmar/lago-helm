@@ -8,6 +8,15 @@ metadata:
     app.kubernetes.io/name: '{{ .Chart.Name }}'
     app.kubernetes.io/pvc-name: lago_storage_data
     app.kubernetes.io/instance: '{{ .Release.Name }}'
+spec:
+  resources:
+    requests:
+      storage: '{{ .Values.apiWorker.persistence.lago_storage_data.capacity }}'
+  {{ if .Values.apiWorker.persistence.lago_storage_data.storageClassName }}
+  storageClassName: '{{ .Values.apiWorker.persistence.lago_storage_data.storageClassName }}'
+  {{ end }}
+  accessModes:
+    - ReadWriteOnce
 
 spec:
 {{- end -}}

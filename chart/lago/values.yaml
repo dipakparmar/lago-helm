@@ -33,6 +33,7 @@ api:
     lago_storage_data:
       capacity: 1Gi
       enabled: false
+      storageClassName: ""
   repository:
     image: getlago/api
     tag: v0.16.0-alpha
@@ -85,6 +86,7 @@ apiWorker:
     lago_storage_data:
       capacity: 1Gi
       enabled: false
+      storageClassName: ""
   repository:
     image: getlago/api
     tag: v0.16.0-alpha
@@ -98,6 +100,7 @@ db:
     lago_postgres_data:
       capacity: 1Gi
       enabled: false
+      storageClassName: ""
   repository:
     image: postgres
     tag: 14.0-alpine
@@ -120,6 +123,7 @@ redis:
     lago_redis_data:
       capacity: 1Gi
       enabled: false
+      storageClassName: ""
   repository:
     image: redis
     tag: 6.2-alpine
