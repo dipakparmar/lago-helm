@@ -37,6 +37,10 @@ api:
   repository:
     image: getlago/api
     tag: v0.16.0-alpha
+  ingress:
+    className: nginx
+    enabled: true
+    host: api.example.com
 apiClock:
   environment:
     DATABASE_URL: postgresql://lago:changeme@lago-db:5432/lago
@@ -114,6 +118,10 @@ front:
   repository:
     image: getlago/front
     tag: v0.16.0-alpha
+  ingress:
+    className: nginx
+    enabled: true
+    host: front.example.com
 pdf:
   repository:
     image: getlago/lago-gotenberg
