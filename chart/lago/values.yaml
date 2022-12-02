@@ -30,10 +30,9 @@ api:
     SECRET_KEY_BASE: your-secret-key-base-hex-64
     SENTRY_DSN: ""
   persistence:
-    lago_storage_data:
-      capacity: 1Gi
-      enabled: false
-      storageClassName: ""
+    enabled: true
+    capacity: 1Gi
+    storageClassName: ""
   repository:
     image: getlago/api
     tag: v0.16.0-alpha
@@ -87,10 +86,9 @@ apiWorker:
     SECRET_KEY_BASE: your-secret-key-base-hex-64
     SENTRY_DSN: ""
   persistence:
-    lago_storage_data:
-      capacity: 1Gi
-      enabled: false
-      storageClassName: ""
+    enabled: true
+    capacity: 1Gi
+    storageClassName: ""
   repository:
     image: getlago/api
     tag: v0.16.0-alpha
@@ -101,10 +99,9 @@ db:
     POSTGRES_PASSWORD: changeme
     POSTGRES_USER: lago
   persistence:
-    lago_postgres_data:
-      capacity: 1Gi
-      enabled: false
-      storageClassName: ""
+    enabled: true
+    capacity: 1Gi
+    storageClassName: ""
   repository:
     image: postgres
     tag: 14.0-alpine
@@ -128,10 +125,9 @@ pdf:
     tag: "7"
 redis:
   persistence:
-    lago_redis_data:
-      capacity: 1Gi
-      enabled: false
-      storageClassName: ""
+    enabled: true
+    capacity: 1Gi
+    storageClassName: ""
   repository:
     image: redis
     tag: 6.2-alpine
