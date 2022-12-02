@@ -1,0 +1,25 @@
+{{- if .Values.front.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: '{{ tpl .Values.front.ingress.className . }}'
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  name: '{{ .Release.Name }}-front'
+spec:
+  rules:
+  - host: '{{ tpl .Values.front.ingress.host . }}'
+    http:
+      paths:
+      - backend:
+          service:
+            name: lago-front
+            port:
+              number: 80
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - '{{ tpl .Values.front.ingress.host . }}'
+  
+{{- end }}

@@ -1,0 +1,25 @@
+{{- if .Values.api.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: '{{ tpl .Values.api.ingress.className . }}'
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+  name: '{{ .Release.Name }}-api'
+spec:
+  rules:
+  - host: '{{ tpl .Values.api.ingress.host . }}'
+    http:
+      paths:
+      - backend:
+          service:
+            name: lago-api
+            port:
+              number: 3000
+        path: /
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - '{{ tpl .Values.api.ingress.host . }}'
+  
+{{- end }}
