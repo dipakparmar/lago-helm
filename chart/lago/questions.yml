@@ -14,11 +14,13 @@ questions:
   type: string
   label: Database User
   description: "Database User"
+  group: "Database Settings"
 - variable: db.environment.POSTGRES_PASSWORD
   default: "lago"
   type: string
   label: Database Password
   description: "Database Password"
+  group: "Database Settings"
 - variable: db.persistence.enabled
   default: "true"
   type: boolean
