@@ -25,5 +25,12 @@ spec:
           ports:
             - name: redis
               containerPort: 6379
+          volumeMounts:
+          - mountPath: /data
+            name: vol-zko9y
+      volumes:
+      - name: vol-zko9y
+        persistentVolumeClaim:
+          claimName: '{{ .Release.Name }}-lago-redis-data'
 
 

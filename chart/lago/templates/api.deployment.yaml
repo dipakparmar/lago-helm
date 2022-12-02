@@ -115,4 +115,11 @@ spec:
               value: '{{ tpl .Values.api.environment.SENTRY_DSN . }}'
           command:
             - ./scripts/start.sh
+          volumeMounts:
+            - mountPath: /app/storage
+              name: vol-z82se3
+      volumes:
+      - name: vol-z82se3
+        persistentVolumeClaim:
+          claimName: '{{ .Release.Name }}-lago-storage-data'
 

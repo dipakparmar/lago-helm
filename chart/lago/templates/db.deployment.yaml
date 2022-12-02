@@ -34,5 +34,13 @@ spec:
               value: '{{ tpl .Values.db.environment.POSTGRES_DB . }}'
             - name: POSTGRES_USER
               value: '{{ tpl .Values.db.environment.POSTGRES_USER . }}'
+          volumeMounts:
+            - mountPath: /data/postgres
+              name: vol-z4g79e
+              subPath: data
+      volumes:
+      - name: vol-z4g79e
+        persistentVolumeClaim:
+          claimName: '{{ .Release.Name }}-lago-postgres-data'
 
 

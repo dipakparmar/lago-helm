@@ -92,4 +92,10 @@ spec:
               value: '{{ tpl .Values.apiWorker.environment.LAGO_PDF_URL . }}'
           command:
             - ./scripts/start.worker.sh
-
+          volumeMounts:
+            - mountPath: /app/storage
+              name: vol-z68dy7
+      volumes:
+      - name: vol-z68dy7
+        persistentVolumeClaim:
+          claimName: '{{ .Release.Name }}-lago-storage-data'
