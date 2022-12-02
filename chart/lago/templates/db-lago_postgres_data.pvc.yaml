@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: '{{ .Release.Name }}-lago_postgres_data'
+  name: '{{ .Release.Name }}-lago-postgres-data'
   labels:
     app.kubernetes.io/component: db
     app.kubernetes.io/name: '{{ .Chart.Name }}'
-    app.kubernetes.io/pvc-name: lago_postgres_data
+    app.kubernetes.io/pvc-name: lago-postgres-data
     app.kubernetes.io/instance: '{{ .Release.Name }}'
 spec:
   resources:
