@@ -1,6 +1,6 @@
 api:
   environment:
-    DATABASE_URL: postgresql://lago:changeme@db:5432/lago
+    DATABASE_URL: postgresql://lago:changeme@lago-db:5432/lago
     ENCRYPTION_DETERMINISTIC_KEY: your-encrpytion-deterministic-key
     ENCRYPTION_KEY_DERIVATION_SALT: your-encrpytion-derivation-salt
     ENCRYPTION_PRIMARY_KEY: your-encrpytion-primary-key
@@ -17,15 +17,15 @@ api:
     LAGO_GCS_BUCKET: ""
     LAGO_GCS_PROJECT: ""
     LAGO_OAUTH_PROXY_URL: ""
-    LAGO_PDF_URL: http://pdf:3000
-    LAGO_REDIS_CACHE_URL: redis://redis:6379
+    LAGO_PDF_URL: http://lago-pdf:3000
+    LAGO_REDIS_CACHE_URL: redis://lago-redis:6379
     LAGO_RSA_PRIVATE_KEY: ""
     LAGO_SIDEKIQ_WEB: ""
     LAGO_USE_AWS_S3: "false"
     LAGO_USE_GCS: "false"
     RAILS_ENV: production
     RAILS_LOG_TO_STDOUT: "true"
-    REDIS_URL: redis://redis:6379
+    REDIS_URL: redis://lago-redis:6379
     RSA_PRIVATE_KEY: ""
     SECRET_KEY_BASE: your-secret-key-base-hex-64
     SENTRY_DSN: ""
@@ -39,7 +39,7 @@ api:
     tag: v0.16.0-alpha
 apiClock:
   environment:
-    DATABASE_URL: postgresql://lago:changeme@db:5432/lago
+    DATABASE_URL: postgresql://lago:changeme@lago-db:5432/lago
     ENCRYPTION_DETERMINISTIC_KEY: your-encrpytion-deterministic-key
     ENCRYPTION_KEY_DERIVATION_SALT: your-encrpytion-derivation-salt
     ENCRYPTION_PRIMARY_KEY: your-encrpytion-primary-key
@@ -47,7 +47,7 @@ apiClock:
     LAGO_RSA_PRIVATE_KEY: ""
     RAILS_ENV: production
     RAILS_LOG_TO_STDOUT: "true"
-    REDIS_URL: redis://redis:6379
+    REDIS_URL: redis://lago-redis:6379
     RSA_PRIVATE_KEY: ""
     SECRET_KEY_BASE: your-secret-key-base-hex-64
     SENTRY_DSN: ""
@@ -71,14 +71,14 @@ apiWorker:
     LAGO_DISABLE_SEGMENT: ""
     LAGO_GCS_BUCKET: ""
     LAGO_GCS_PROJECT: ""
-    LAGO_PDF_URL: http://pdf:3000
-    LAGO_REDIS_CACHE_URL: redis://redis:6379
+    LAGO_PDF_URL: http://lago-pdf:3000
+    LAGO_REDIS_CACHE_URL: redis://lago-redis:6379
     LAGO_RSA_PRIVATE_KEY: ""
     LAGO_USE_AWS_S3: "false"
     LAGO_USE_GCS: "false"
     RAILS_ENV: production
     RAILS_LOG_TO_STDOUT: "true"
-    REDIS_URL: redis://redis:6379
+    REDIS_URL: redis://lago-redis:6379
     RSA_PRIVATE_KEY: ""
     SECRET_KEY_BASE: your-secret-key-base-hex-64
     SENTRY_DSN: ""
