@@ -1,0 +1,123 @@
+categories:
+- analytics
+- meetering
+questions:
+# Database Settings
+- variable: db.environment.POSTGRES_DB
+  default: "lago"
+  type: string
+  label: Database Name
+  description: "Database Name"
+  group: "Database Settings"
+- variable: db.environment.POSTGRES_USER
+  default: "lago"
+  type: string
+  label: Database User
+  description: "Database User"
+- variable: db.environment.POSTGRES_PASSWORD
+  default: "lago"
+  type: string
+  label: Database Password
+  description: "Database Password"
+- variable: db.persistence.enabled
+  default: "true"
+  type: boolean
+  label: Enable Database Persistence
+  description: "Enable Database Persistence"
+  group: "Database Settings"
+  show_subquestion_if: true
+  subquestions:
+  - variable: db.persistence.capacity
+    default: "1Gi"
+    description: "Database persistent volume size"
+    required: true
+    type: string
+    label: Database Persistent Volume Size
+  - variable: db.persistence.existingClaim
+    default: ""
+    type: string
+    label: Existing Database Persistent Volume Claim
+    description: "Existing Database Persistent Volume Claim"
+    group: "Database Settings"
+    show_if: "db.persistence.enabled=false"
+  - variable: db.persistence.storageClassName
+    default: ""
+    type: string
+    label: Database Storage Class
+    description: "Database Storage Class"
+    group: "Database Settings"
+    show_if: "db.persistence.enabled=false"
+  - variable: db.persistence.accessMode
+    default: "ReadWriteOnce"
+    type: string
+    label: Database Persistent Volume Access Mode
+    description: "Database Persistent Volume Access Mode"
+    group: "Database Settings"
+    show_if: "db.persistence.enabled=false"
+# Redis Settings
+- variable: redis.persistance.enabled
+  default: "true"
+  type: boolean
+  label: Enable Redis Persistence
+  description: "Enable Redis Persistence"
+  group: "Redis Settings"
+  show_subquestion_if: true
+  subquestions:
+  - variable: redis.persistance.capacity
+    default: "1Gi"
+    description: "Redis persistent volume size"
+    required: true
+    type: string
+    label: Redis Persistent Volume Size
+  - variable: redis.persistance.existingClaim
+    default: ""
+    type: string
+    label: Existing Redis Persistent Volume Claim
+    description: "Existing Redis Persistent Volume Claim"
+    group: "Redis Settings"
+    show_if: "redis.persistance.enabled=false"
+  - variable: redis.persistance.storageClassName
+    default: ""
+    type: string
+    label: Redis Storage Class
+    description: "Redis Storage Class"
+    group: "Redis Settings"
+    show_if: "redis.persistance.enabled=false"
+  - variable: redis.persistance.accessMode
+    default: "ReadWriteOnce"
+    type: string
+    label: Redis Persistent Volume Access Mode
+    description: "Redis Persistent Volume Access Mode"
+    group: "Redis Settings"
+    show_if: "redis.persistance.enabled=false"
+# Lago Frontend Settings
+- variable: front.ingress.enabled
+  default: true
+  description: "Expose Lago Frontend using ingress"
+  type: boolean
+  group: "Lago Frontend Settings"
+  label: Expose Lago Frontend using ingress
+  show_subquestion_if: true
+  required: true
+  subquestions:
+  - variable: fron.ingress.host
+    default: "xip.io"
+    description: "Lago Frontend server ingress hostname"
+    type: hostname
+    required: true
+    label: Hostname
+  - variable: front.ingress.tls
+    default: false
+    description: "Enable TLS for Lago Frontend"
+    type: boolean
+    group: "Lago Frontend Settings"
+    label: Enable TLS
+    show_subquestion_if: true
+    required: true
+    subquestions:
+    - variable: fron.ingress.tlsSecret
+      default: ""
+      description: "TLS Secret (certificates)"
+      type: string
+      required: true
+      label: TLS Secret
