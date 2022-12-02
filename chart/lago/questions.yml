@@ -102,7 +102,7 @@ questions:
   show_subquestion_if: true
   required: true
   subquestions:
-  - variable: fron.ingress.host
+  - variable: front.ingress.host
     default: "xip.io"
     description: "Lago Frontend server ingress hostname"
     type: hostname
@@ -117,7 +117,7 @@ questions:
     show_subquestion_if: true
     required: true
     subquestions:
-    - variable: fron.ingress.tlsSecret
+    - variable: front.ingress.tlsSecret
       default: ""
       description: "TLS Secret (certificates)"
       type: string
